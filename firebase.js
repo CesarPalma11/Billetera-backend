@@ -1,13 +1,10 @@
 import admin from "firebase-admin";
-import fs from "fs";
-import path from "path";
 
-// Ruta absoluta a tu archivo de credenciales
-const serviceAccountPath = path.resolve("./serviceAccountKey.json");
-const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, "utf8"));
+// Parseamos directamente el JSON desde la variable de entorno
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.cert(serviceAccount)
 });
 
 export default admin;
